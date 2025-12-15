@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import booksRoute from "./routes/book.js";
 import publisherRoute from "./routes/publisher.js";
 import authorRoute from "./routes/author.js"
+import userRoute from "./routes/user.js";
 
 const app = express()
 app.use(express.static('public'))
@@ -27,3 +28,4 @@ mongoose.connect('mongodb://127.0.0.1:27017/Pathsala')
 app.use("/books", booksRoute);
 app.use("/publishers", publisherRoute)
 app.use("/authors", authorRoute)
+app.use("/users", userRoute)

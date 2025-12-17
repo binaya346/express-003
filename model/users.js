@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const { Schema } = mongoose;
 
@@ -96,9 +97,9 @@ const schema = new Schema(
 
 /* Password hashing */
 schema.pre("save", async function (next) {
-    if (!this.isModified("password")) return next();
+    if (!this.isModified("password")) return next;
     this.password = await bcrypt.hash(this.password, 12);
-    next();
+    next;
 });
 
 /* Compare password */

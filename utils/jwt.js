@@ -1,4 +1,10 @@
 import jwt from "jsonwebtoken";
+const {
+    JWT_ACCESS_SECRET,
+    ACCESS_TOKEN_EXPIRES,
+    JWT_REFRESH_SECRET,
+    REFRESH_TOKEN_EXPIRES
+} = process.env;
 
 export const generateAccessToken = (user) => {
     return jwt.sign(
@@ -7,15 +13,15 @@ export const generateAccessToken = (user) => {
             email: user.email,
             role: user.role
         },
-        process.env.JWT_ACCESS_SECRET,
-        { expiresIn: process.env.ACCESS_TOKEN_EXPIRES }
+        JWT_ACCESS_SECRET,
+        { expiresIn: ACCESS_TOKEN_EXPIRES }
     );
 };
 
 export const generateRefreshToken = (user) => {
     return jwt.sign(
         { id: user._id },
-        process.env.JWT_REFRESH_SECRET,
-        { expiresIn: process.env.REFRESH_TOKEN_EXPIRES }
+        JWT_REFRESH_SECRET,
+        { expiresIn: REFRESH_TOKEN_EXPIRES }
     );
 };

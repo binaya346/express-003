@@ -1,5 +1,6 @@
 import express from "express";
 import upload from '../middleware/storage.js'
+import auth from '../middleware/auth.js';
 import {
     createAuthor,
     deleteAuthor,
@@ -10,8 +11,8 @@ import {
 const router = express.Router();
 
 router.get("/", getAuthors);
-router.post("/", upload.single("image"), createAuthor);
-router.put("/:id", updateAuthor);
-router.delete("/:id", deleteAuthor);
+router.post("/", auth, upload.single("image"), createAuthor);
+router.put("/:id", auth, updateAuthor);
+router.delete("/:id", auth, deleteAuthor);
 
 export default router; 

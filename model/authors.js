@@ -11,7 +11,8 @@ const schema = new Schema({
     },
     contact: Number,
     email: String,
-    avatar: String
+    avatar: String,
+    created_by: String,
 });
 
 const model = mongoose.model("Author", schema);

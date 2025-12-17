@@ -13,8 +13,9 @@ export const createAuthor = async (req, res) => {
     try {
         const { name, age, country, gender, contact, email } = req.body;
         const avatar = req.file ? req.file.filename : "";
+        const created_by = req.user?.email;
 
-        const ModelResponse = new Model({ name, age, country, gender, contact, email, avatar });
+        const ModelResponse = new Model({ name, age, country, gender, contact, email, avatar, created_by });
         const response = await ModelResponse.save()
         res.status(201).send({ "message": `Successfully created! ${response}` })
     } catch (err) {

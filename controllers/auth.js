@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User from "../model/users.js";
 import {
     generateAccessToken,
     generateRefreshToken

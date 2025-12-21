@@ -1,6 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import 'dotenv/config';
 import booksRoute from "./routes/book.js";
 import publisherRoute from "./routes/publisher.js";
@@ -9,7 +10,7 @@ import userRoute from "./routes/user.js";
 import authRoute from './routes/auth.js';
 
 const app = express()
-
+app.use(cors())
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded())
 app.use(bodyParser.json())

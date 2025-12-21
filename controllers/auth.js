@@ -8,6 +8,9 @@ import jwt from "jsonwebtoken";
 /* REGISTER */
 export const register = async (req, res) => {
     try {
+        if (req.file) {
+            req.body.profile_picture = req.file.filename;
+        }
         const user = await User.create(req.body);
         res.status(201).json({ message: "User registered" });
     } catch (err) {

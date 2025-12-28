@@ -12,7 +12,17 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.post("/", upload.single('image'), async (req, res) => {
+router.get("/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const response = await Model.findById(id);
+        res.send(response);
+    } catch (error) {
+        res.status(500).send({ error: 'Failed to fetch books' });
+    }
+});
+
+router.post("/", upload.single('cover_image'), async (req, res) => {
     try {
         const { title, pages, price } = req.body;
         const cover_image = req.file ? req.file.filename : "";
@@ -28,15 +38,27 @@ router.post("/", upload.single('image'), async (req, res) => {
     }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", upload.single('cover_image'), async (req, res) => {
     try {
         const id = req.params.id;
         const { title, pages, price } = req.body;
-        const response = await Model.findByIdAndUpdate(id, {
-            title, pages, price
-        }, { new: true });
+        let cover_image;
+        let newObject;
 
+        if (req.file) {
+            cover_image = req.file.filename;
+            newObject = {
+                title, pages, price, cover_image
+            }
+        } else {
+            newObject = {
+                title, pages, price
+            }
+        }
+
+        const response = await Model.findByIdAndUpdate(id, newObject, { new: true });
         res.status(200).send({ "message": `Successfully Updated! ${response}` })
+
     } catch (err) {
         console.log(err + " err");
         res.status(500).send({ "Error": err });
